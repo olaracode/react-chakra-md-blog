@@ -17,10 +17,14 @@ const MarkDownContainer = ({ content = "" }) => {
     <Box
       sx={{
         h1: {
+          my: 3,
           fontSize: 24,
           fontWeight: "bold",
           borderBottom: "2px solid",
           borderColor: "brand.primary",
+        },
+        code: {
+          my: 5,
         },
       }}
     >
