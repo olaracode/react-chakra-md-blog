@@ -10,6 +10,13 @@ import {
 
 import useStore from "@/hooks/useStore";
 
+const baseHeading = {
+  my: 3,
+  fontWeight: "bold",
+  borderBottom: "2px solid",
+  borderColor: "brand.primary",
+};
+
 const MarkDownContainer = ({ content = "" }) => {
   const { store } = useStore();
   const theme = store.theme ? materialOceanic : atomDark;
@@ -17,13 +24,16 @@ const MarkDownContainer = ({ content = "" }) => {
     <Box
       sx={{
         h1: {
-          my: 3,
           fontSize: 24,
-          fontWeight: "bold",
-          borderBottom: "2px solid",
-          borderColor: "brand.primary",
+          ...baseHeading,
         },
-        code: {
+        h2: {
+          ...baseHeading,
+          fontSize: 20,
+          marginTop: 10,
+          borderBottom: "1px solid",
+        },
+        pre: {
           my: 5,
         },
       }}

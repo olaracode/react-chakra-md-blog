@@ -1,15 +1,20 @@
 import React from "react";
 import { atom, useRecoilState } from "recoil";
 
-let development = true;
 let BASE_URL = "https://express-blog-xa7v.onrender.com";
-
+let test_url = "http://localhost:3000";
+const url = BASE_URL;
 const fetchBlogs = (slug) => {
   if (slug) {
-    return fetch(`${BASE_URL}/blogs/${slug}`).then((res) => res.json());
+    return fetch(`${url}/blogs/${slug}`).then((res) => res.json());
   }
-  return fetch(`${BASE_URL}/blogs/`).then((res) => res.json());
+  return fetch(`${url}/blogs/`).then((res) => res.json());
 };
+
+const tags = atom({
+  key: "tags",
+  default: [],
+});
 
 const blogsState = atom({
   key: "blogsState",
@@ -24,9 +29,12 @@ const currentBlogState = atom({
 const useBlogs = () => {
   const [blogs, setBlogs] = useRecoilState(blogsState);
   const [currentBlog, setCurrentBlog] = useRecoilState(currentBlogState);
+  const [tagState, setTagState] = useRecoilState(tags);
   const [fulfilled, setFulfilled] = React.useState(false);
+  const [changing, setChanging] = React.useState(false);
 
   const setBlogContent = async (slug) => {
+    setChanging(true);
     const response = await fetchBlogs(slug);
     let id;
     let selectedBlog;
@@ -42,8 +50,8 @@ const useBlogs = () => {
       });
       return newBlogs;
     });
-    console.log();
     setCurrentBlog(selectedBlog);
+    setChanging(false);
   };
 
   const setCurrentBlogContent = (id) => {
@@ -58,10 +66,11 @@ const useBlogs = () => {
   };
 
   const postContent = async (post) => {
-    const response = await fetch(`${BASE_URL}/blogs/`, {
+    const response = await fetch(`${url}/blogs/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
       },
       body: JSON.stringify(post),
     });
@@ -76,6 +85,7 @@ const useBlogs = () => {
   return {
     blogs,
     setBlogContent,
+    changing,
     setCurrentBlogContent,
     currentBlog,
     postContent,

@@ -1,8 +1,9 @@
 import React from "react";
 import Container from "@/components/atoms/Container";
-import { Textarea, Input } from "@chakra-ui/react";
+import { Textarea, Input, Box, Text, Wrap, Tooltip } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import useBlogs from "@/blog/useBlogs";
+import MarkDownContainer from "@/components/atoms/MarkDownContainer";
 const initialValue = {
   title: "",
   content: "",
@@ -10,6 +11,17 @@ const initialValue = {
 const Publish = () => {
   const { postContent } = useBlogs();
   const [post, setPost] = React.useState(initialValue);
+  const tag = React.useRef(null);
+  const [tags, setTags] = React.useState([]);
+  const addTags = () => {
+    if (tag.current.value !== "") {
+      setTags([...tags, tag.current.value]);
+      tag.current.value = "";
+    }
+  };
+  const removeTags = (indexToRemove) => {
+    setTags([...tags.filter((_, index) => index !== indexToRemove)]);
+  };
   const handleChange = (e) => {
     setPost({
       ...post,
@@ -18,7 +30,7 @@ const Publish = () => {
   };
   const handlePublish = () => {
     console.log(post);
-    postContent(post);
+    postContent({ ...post, tags });
     setPost(initialValue);
   };
   return (
@@ -36,9 +48,38 @@ const Publish = () => {
         value={post.content}
         onChange={handleChange}
       ></Textarea>
-      <Button onClick={handlePublish} my={5}>
+      <Box display="flex" gap={2}>
+        <Input my={5} ref={tag} />
+        <Button onClick={addTags} my={5} variant="primary">
+          +
+        </Button>
+      </Box>
+      <Wrap>
+        {tags.map((tag, index) => (
+          <Tooltip key={index} label="eliminar">
+            <Box
+              p={1}
+              borderRadius="md"
+              bg={"brand.card"}
+              border="1px solid"
+              borderColor="brand.primary"
+              cursor="pointer"
+              onClick={() => removeTags(index)}
+            >
+              {tag}
+            </Box>
+          </Tooltip>
+        ))}
+      </Wrap>
+      <Button onClick={handlePublish} my={5} variant="primary">
         Crear
       </Button>
+      {post.content !== "" && (
+        <Box>
+          <Text>Preview</Text>
+          <MarkDownContainer content={post.content} />
+        </Box>
+      )}
     </Container>
   );
 };
