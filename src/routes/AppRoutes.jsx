@@ -7,7 +7,7 @@ import Publish from "@/views/post/Publish";
 import NotFound from "./NotFound";
 const AppRoutes = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
