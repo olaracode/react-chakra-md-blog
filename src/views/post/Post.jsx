@@ -10,13 +10,22 @@ import { Helmet } from "react-helmet";
 const Post = () => {
   const { blogs, setBlogContent, currentBlog, changing } = useBlogs();
   const { slug } = useParams();
+  const scrollToTop = () => {
+    // Scroll to the top of the window
+    console.log("hi");
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   React.useEffect(() => {
     if (!blogs) return;
     if (currentBlog.slug === slug) return;
     if (blogs.length > 0) {
+      scrollToTop();
       setBlogContent(slug);
     }
-  }, [blogs, currentBlog]);
+  }, [blogs, currentBlog, slug]);
   if (changing) return <BlogSkeleton />;
   return (
     <>

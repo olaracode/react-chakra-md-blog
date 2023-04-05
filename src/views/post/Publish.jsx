@@ -1,9 +1,17 @@
 import React from "react";
 import Container from "@/components/atoms/Container";
-import { Textarea, Input, Box, Text, Wrap, Tooltip } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
+import {
+  Textarea,
+  Input,
+  Box,
+  Text,
+  Wrap,
+  Tooltip,
+  Button,
+} from "@chakra-ui/react";
 import useBlogs from "@/blog/useBlogs";
 import MarkDownContainer from "@/components/atoms/MarkDownContainer";
+import { Tags } from "@/components";
 const initialValue = {
   title: "",
   content: "",
@@ -57,17 +65,11 @@ const Publish = () => {
       <Wrap>
         {tags.map((tag, index) => (
           <Tooltip key={index} label="eliminar">
-            <Box
-              p={1}
-              borderRadius="md"
-              bg={"brand.card"}
-              border="1px solid"
-              borderColor="brand.primary"
+            <Tags
               cursor="pointer"
               onClick={() => removeTags(index)}
-            >
-              {tag}
-            </Box>
+              content={tag}
+            />
           </Tooltip>
         ))}
       </Wrap>

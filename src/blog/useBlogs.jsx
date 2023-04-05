@@ -113,6 +113,19 @@ const useBlogs = () => {
     }
   }, [setBlogs]);
 
+  const postContent = async (post) => {
+    const response = await fetch(`${url}/blogs/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+      body: JSON.stringify(post),
+    });
+    const data = await response.json();
+    console.log(data);
+  };
+
   useEffect(() => {
     getBlogs();
     fetchTags().then((data) => setTagState(data));
@@ -123,6 +136,7 @@ const useBlogs = () => {
     currentBlog,
     tagState,
     fulfilled,
+    postContent,
     changing,
     setBlogContent,
     setCurrentBlogContent,

@@ -9,12 +9,19 @@ import {
   Text,
   Input,
   ModalCloseButton,
+  Divider,
 } from "@chakra-ui/react";
 import useSearchModal from "@/hooks/useSearchModal";
 import Container from "@/components/atoms/Container";
+import SearchList from "./SearchList";
 const SearchModal = () => {
-  const { toggle, searchModal, handleKeyDown } = useSearchModal();
-  console.log(searchModal);
+  const [search, setSearch] = React.useState("");
+  const { toggle, searchModal, handleKeyDown, fetchSearch, reset } =
+    useSearchModal();
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+    fetchSearch(search);
+  };
   return (
     <Modal
       isOpen={searchModal}
@@ -30,7 +37,18 @@ const SearchModal = () => {
           }}
         />
         <ModalBody>
-          <Input variant="filled" placeholder="busqueda" />
+          <Input
+            variant="filled"
+            placeholder="busqueda"
+            onChange={handleChange}
+          />
+
+          {search.length > 0 && (
+            <>
+              <Divider my={5} />
+              <SearchList />
+            </>
+          )}
         </ModalBody>
 
         <ModalFooter>

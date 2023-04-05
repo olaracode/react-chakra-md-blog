@@ -9,10 +9,13 @@ const components = {
   Button: {
     variants: {
       primary: {
-        backgroundColor: "brand.primary",
-        borderRadius: "6px",
+        backgroundColor: "blue.600",
+        borderRadius: "sm",
         fontWeight: "normal",
         color: "brand.white",
+        _hover: {
+          backgroundColor: "blue.700",
+        },
       },
       ghost: {
         backgroundColor: "none",
