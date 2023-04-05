@@ -17,7 +17,8 @@ const components = {
       ghost: {
         backgroundColor: "none",
         _hover: {
-          backgroundColor: "brand.primary",
+          backgroundColor: "brand.dark",
+          color: "blue.100",
         },
       },
     },
