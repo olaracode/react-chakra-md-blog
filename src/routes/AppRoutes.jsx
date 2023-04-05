@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "@/components/organisms/Layout";
 import Home from "@/views/home/Home";
@@ -7,7 +7,7 @@ import Publish from "@/views/post/Publish";
 import Auth from "@/views/auth/Auth";
 import NotFound from "./NotFound";
 import AuthGuard from "@/auth/AuthGuard";
-
+import { Carousel } from "@/components/organisms";
 const AppRoutes = () => {
   return (
     <BrowserRouter basename="/">
@@ -24,6 +24,7 @@ const AppRoutes = () => {
               </AuthGuard>
             }
           />
+          <Route path="/carousel" element={<Carousel />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>

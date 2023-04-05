@@ -1,8 +1,9 @@
 import React from "react";
 import { useToast } from "@chakra-ui/react";
 import { useRecoilState, atom } from "recoil";
-
-const BASE_URL = "https://express-blog-xa7v.onrender.com";
+let BASE_URL = "https://express-blog-xa7v.onrender.com";
+let test_url = "http://localhost:3000";
+const url = BASE_URL;
 export const authState = atom({
   key: "authToken",
   default: "",
@@ -13,7 +14,7 @@ const useAuth = () => {
   const toast = useToast();
   const userLogin = async (user) => {
     try {
-      const response = await fetch(`${BASE_URL}/auth/login`, {
+      const response = await fetch(`${url}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

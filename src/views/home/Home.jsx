@@ -1,8 +1,7 @@
 import Container from "@/components/atoms/Container";
 import { Suspense } from "react";
-import BList from "@/components/organisms/BList";
+import { BList } from "@/components/organisms";
 function Home() {
-  console.log("hi");
   return (
     <>
       <Container maxWidth="1200px" margin="auto">
