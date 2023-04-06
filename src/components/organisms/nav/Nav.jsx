@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Flex,
   Text,
@@ -15,20 +15,15 @@ import useStore from "@/hooks/useStore";
 import { SearchIcon } from "@chakra-ui/icons";
 import img from "@/assets/imgs/react-logo.png";
 import useSearchModal from "@/hooks/useSearchModal";
-
+import Hide from "@/components/molecules/Hide";
 const Nav = () => {
   const { store, actions } = useStore();
   const navigate = useNavigate();
   const { toggle } = useSearchModal();
   const buttonColor = store.theme ? "brand.dark" : "brand.white";
+
   return (
-    <Flex
-      h="50px"
-      maxH="100%"
-      bgColor="brand.card"
-      boxShadow={"md"}
-      align="center"
-    >
+    <Hide>
       <Container>
         <Flex justify="space-between" align="center" maxH="100%">
           <Box
@@ -40,7 +35,7 @@ const Nav = () => {
             cursor="pointer"
           >
             <Image src={img} width="30px" />
-            <Text fontWeight={"bold"}>ReactJs</Text>
+            <Text fontWeight={"bold"}>ReactDocs</Text>
           </Box>
           <Box w="70%" display={{ base: "none", md: "block" }}>
             <Button
@@ -85,7 +80,7 @@ const Nav = () => {
           </Flex>
         </Flex>
       </Container>
-    </Flex>
+    </Hide>
   );
 };
 
